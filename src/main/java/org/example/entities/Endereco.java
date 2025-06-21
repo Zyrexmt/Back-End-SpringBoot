@@ -55,14 +55,6 @@ public class Endereco implements Serializable {
         this.endId = endId;
     }
 
-    public Cliente getEndCliente() {
-        return endCliente;
-    }
-
-    public void setEndCliente(Cliente endCliente) {
-        this.endCliente = endCliente;
-    }
-
     public String getEndRua() {
         return endRua;
     }

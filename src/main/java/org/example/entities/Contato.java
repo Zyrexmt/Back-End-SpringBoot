@@ -46,14 +46,6 @@ public class Contato implements Serializable {
         this.conId = conId;
     }
 
-    public Cliente getConCliente() {
-        return conCliente;
-    }
-
-    public void setConCliente(Cliente conCliente) {
-        this.conCliente = conCliente;
-    }
-
     public String getConCelular() {
         return conCelular;
     }

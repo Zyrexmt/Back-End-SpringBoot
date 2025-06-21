@@ -1,15 +1,17 @@
 package org.example.services;
 
+
 import org.example.entities.Fornecedor;
+import org.example.entities.Produto;
 import org.example.repositories.FornecedorRepository;
 import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FornecedorService {
 
     @Autowired
@@ -24,16 +26,18 @@ public class FornecedorService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Fornecedor insert(Fornecedor cargaHoraria) {
-        return repository.save(cargaHoraria);
+    public Fornecedor insert(Fornecedor fornecedor) {
+        return repository.save(fornecedor);
     }
 
     public boolean update(Long id, Fornecedor fornecedor) {
         Optional<Fornecedor> optionalFornecedor = repository.findById(id);
         if (optionalFornecedor.isPresent()) {
-            Fornecedor existFornecedor = optionalFornecedor.get();
-            existFornecedor.setNome(fornecedor.getNome());
-            repository.save(fornecedor);
+            Fornecedor fornecedorSistema = optionalFornecedor.get();
+            fornecedorSistema.setForNomeFantasia(fornecedor.getForNomeFantasia());
+            fornecedorSistema.setForCnpj(fornecedor.getForCnpj());
+            fornecedorSistema.setForRazaoSocial(fornecedor.getForRazaoSocial());
+            repository.save(fornecedorSistema);
             return true;
         }
         return false;

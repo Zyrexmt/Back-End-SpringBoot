@@ -22,7 +22,7 @@ public class ClienteResource {
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {
-        List<Cliente> cliente = service.findALL();
+        List<Cliente> cliente = service.findAll();
         return ResponseEntity.ok(cliente);
     }
 
@@ -49,7 +49,7 @@ public class ClienteResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        service.delete(id);
+        service.deleteCliente(id);
         return ResponseEntity.noContent().build();
     }
 }

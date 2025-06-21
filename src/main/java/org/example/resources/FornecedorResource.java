@@ -1,6 +1,8 @@
 package org.example.resources;
 
+
 import org.example.entities.Fornecedor;
+import org.example.entities.Produto;
 import org.example.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,35 +10,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/fornecedor")
+@RequestMapping(value = "/fornecedores")
 public class FornecedorResource {
+
     @Autowired
     public FornecedorService service;
 
     @GetMapping
     public ResponseEntity<List<Fornecedor>> getAll(){
-        List<Fornecedor> fornecedor = service.findAll();
-        return ResponseEntity.ok(fornecedor);
+        List<Fornecedor> funcoes = service.findAll();
+        return ResponseEntity.ok(funcoes);
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
-        Optional<Fornecedor> fornecedor = Optional.ofNullable(service.findById(id));
-        return fornecedor.map(ResponseEntity::ok).orElseGet(()
-                -> ResponseEntity.notFound().build());
+        Fornecedor obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
+
     @PostMapping
     public ResponseEntity<Fornecedor> insert(@RequestBody Fornecedor fornecedor){
-        Fornecedor created = service.insert(fornecedor);
-        return ResponseEntity.status(HttpStatus.MULTI_STATUS.CREATED).body(created);
+        Fornecedor createdFornecedor = service.insert(fornecedor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdFornecedor);
     }
-    @DeleteMapping("/id")
+
+    @DeleteMapping("{/id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,
                                     @RequestBody Fornecedor fornecedor){
         if (service.update(id, fornecedor)){

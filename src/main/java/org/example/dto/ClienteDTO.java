@@ -14,6 +14,7 @@ public class ClienteDTO {
 
     private Long cliId;
 
+    @CPF
     private String cliCpf;
 
     private String cliNome;

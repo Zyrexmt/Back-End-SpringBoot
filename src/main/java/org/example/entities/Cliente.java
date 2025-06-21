@@ -28,13 +28,17 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_NOME", nullable = false)
     private String cliNome;
 
+    @NotBlank(message = "Cpf é obrigatório!")
+    @CPF(message = "CPF inválido!")
+    @Column(name = "CLI_CPF", length = 11 , nullable = false, unique = true)
+    private String cliCpf;
+
     public Cliente() {
     }
 
-    public Cliente(Long cliId, List<Endereco> enderecos, List<Contato> contatos, String cliNome) {
+    public Cliente(Long cliId, String cliCpf, String cliNome) {
         this.cliId = cliId;
-        this.enderecos = enderecos;
-        this.contatos = contatos;
+        this.cliCpf = cliCpf;
         this.cliNome = cliNome;
     }
 
@@ -68,5 +72,13 @@ public class Cliente implements Serializable {
 
     public void setCliNome(String cliNome) {
         this.cliNome = cliNome;
+    }
+
+    public String getCliCpf() {
+        return cliCpf;
+    }
+
+    public void setCliCpf(String cliCpf) {
+        this.cliCpf = cliCpf;
     }
 }

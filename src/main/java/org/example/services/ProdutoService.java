@@ -1,9 +1,8 @@
 package org.example.services;
 
-import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
 import org.example.repositories.ProdutoRepository;
-import org.example.services.exeptions.ObjectNotFoundException;
+import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,41 +17,41 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-    @Autowired
-    private FornecedorService fornecedorService;
-
     public List<Produto> getAll() {
 
         return repository.findAll();
     }
 
-    public Page<Produto> getAllPage(Pageable pageable) {
-
-        return repository.findAll(pageable);
-    }
-    public Produto findById(Long id) {
+    public Produto findById(Long id){
         Optional<Produto> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
 
     public Produto insert(Produto obj) {
-        obj.setId(null);
-        obj.setFornecedor(fornecedorService.findById(obj.getFornecedor().getId()));
-        obj = repository.save(obj);
-        return obj;
+        return repository.save(obj);
     }
 
-    @SuppressWarnings("deprecation")
     public Produto update(Long id, Produto obj) {
-        Produto entity = repository.getOne(id);
-        updateData(entity, obj);
-        return repository.save(entity);
-    }
+        Optional<Produto> optionalProduto = repository.findById(id);
+        if (optionalProduto.isPresent()) {
+            Produto produtoSistema = optionalProduto.get();
+            produtoSistema.setProNome(obj.getProNome());
+            produtoSistema.setProPrecoCusto(obj.getProPrecoCusto());
+            produtoSistema.setProPrecoVenda(obj.getProPrecoVenda());
+            produtoSistema.setProQuantidade(obj.getProQuantidade());
+            produtoSistema.setProDescricao(obj.getProDescricao());
+            produtoSistema.setProCodigoBarras(obj.getProCodigoBarras());
+            produtoSistema.setProAtivo(obj.getProAtivo());
+            produtoSistema.setProMarca(obj.getProMarca());
+            produtoSistema.setProDataAtualizacao(obj.getProDataAtualizacao());
+            produtoSistema.setProDataCadastro(obj.getProDataCadastro());
+            produtoSistema.setProCategoria(obj.getProCategoria());
 
-    private void updateData(Produto entity, Produto obj) {
-        entity.setFornecedor(obj.getFornecedor());
-        entity.setNome(obj.getNome());
+            repository.save(produtoSistema);
+            return true;
+        }
+        return false;
     }
 
     public void delete(Long id) {
