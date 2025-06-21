@@ -19,9 +19,9 @@ public class FormaPagamentoService {
         return repository.findAll();
     }
 
-    public Optional<FormaPagamento> findById(Long id){
-        Optional<FormaPagamento> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    public FormaPagamento findById(Long id){
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
     public FormaPagamento insert(FormaPagamento formaPagamento){
         return repository.save(formaPagamento);

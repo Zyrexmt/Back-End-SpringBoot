@@ -1,6 +1,6 @@
 package org.example.resources;
 
-import javafx.concurrent.Service;
+import org.example.dto.ClienteDTO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.example.entities.Cliente;
 import org.example.services.ClienteService;
@@ -21,34 +21,36 @@ public class ClienteResource {
     public ClienteService service;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> getAll() {
+    public ResponseEntity<List<ClienteDTO>> getAll() {
         List<Cliente> cliente = service.findAll();
-        return ResponseEntity.ok(cliente);
+        List<ClienteDTO> listDTO = cliente.stream().map(service::toNewDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(listDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id) {
         Cliente obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        ClienteDTO dto = service.toNewDTO(obj);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> insert(@RequestBody Cliente cliente) {
-        Cliente createdCliente = service.insert(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCliente);
+    public ResponseEntity<ClienteDTO> insert(@RequestBody ClienteDTO dto) {
+        Cliente cliente = service.fromDTO(dto);
+        Cliente saved = service.insert(cliente);
+        ClienteDTO savedDTO = service.toNewDTO(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Cliente cliente) {
-        if (service.update(id, cliente)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ClienteDTO dto) {
+        Cliente updated = service.update(id, dto);
+        ClienteDTO updatedDTO = service.toNewDTO(updated);
+        return ResponseEntity.ok(updatedDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.deleteCliente(id);
         return ResponseEntity.noContent().build();
     }

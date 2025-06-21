@@ -32,7 +32,7 @@ public class ProdutoService {
         return repository.save(obj);
     }
 
-    public Produto update(Long id, Produto obj) {
+    public boolean update(Long id, Produto obj) {
         Optional<Produto> optionalProduto = repository.findById(id);
         if (optionalProduto.isPresent()) {
             Produto produtoSistema = optionalProduto.get();

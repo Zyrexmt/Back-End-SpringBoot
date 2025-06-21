@@ -32,9 +32,9 @@ public class ClienteService {
         return repository.findAll();
     }
 
-    public List<Cliente> findById(Long id){
-        Optional<Cliente> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new
+    public Cliente findById(Long id){
+        return repository.findById(id)
+                .orElseThrow(() -> new
                 ResourceNotFoundException(id));
     }
 
