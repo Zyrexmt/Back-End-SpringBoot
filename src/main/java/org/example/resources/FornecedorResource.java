@@ -1,6 +1,7 @@
 package org.example.resources;
 
 
+import org.example.dto.FornecedorDTO;
 import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
 import org.example.services.FornecedorService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -20,9 +22,10 @@ public class FornecedorResource {
     public FornecedorService service;
 
     @GetMapping
-    public ResponseEntity<List<Fornecedor>> getAll(){
-        List<Fornecedor> funcoes = service.findAll();
-        return ResponseEntity.ok(funcoes);
+    public ResponseEntity<List<FornecedorDTO>> getAll(){
+        List<Fornecedor> fornecedor = service.findAll();
+        List<FornecedorDTO> listDTO = fornecedor.stream().map(service::toNewDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(listDTO);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
