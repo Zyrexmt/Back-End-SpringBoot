@@ -39,7 +39,7 @@ public class ClienteResource {
         Cliente cliente = service.fromDTO(dto);
         Cliente saved = service.insert(cliente);
         ClienteDTO savedDTO = service.toNewDTO(saved);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedDTO);
     }
 
     @PutMapping("/{id}")

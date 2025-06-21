@@ -3,6 +3,8 @@ package org.example.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -19,22 +21,47 @@ public class Endereco implements Serializable {
     @JoinColumn(name = "END_CLI_ID")
     private Cliente endCliente;
 
-    @Column(name = "END_RUA")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "END_FOR_ID")
+    private Fornecedor endFornecedor;
+
+    @NotBlank(message = "Obrigatório")
+    @Size(max = 150, message = "Limite de 150 caracteres")
+    @Column(name = "END_RUA", nullable = false, length = 150)
     private String endRua;
 
-    @Column(name = "END_NUMERO")
+    @NotBlank(message = "Obrigatório")
+    @Size(max = 10, message = "Limite de 10 caracteres")
+    @Column(name = "END_NUMERO", nullable = false, length = 10)
     private String endNumero;
 
-    @Column(name = "END_CIDADE")
+    @NotBlank(message = "Obrigatório")
+    @Size(max = 100, message = "Limite de 100 caracteres")
+    @Column(name = "END_CIDADE", nullable = false, length = 100)
     private String endCidade;
 
-    @Column(name = "END_CEP", length = 8)
+    @NotBlank(message = "Obrigatório")
+    @Size(max = 8, message = "Limite de 8 caracteres")
+    @Column(name = "END_CEP", length = 8, nullable = false)
     private String endCep;
 
-    @Column(name = "END_ESTADO", length = 2)
+    @NotBlank(message = "Obrigatório")
+    @Size(max = 100, message = "Limite de 100 caracteres")
+    @Column(name = "END_ESTADO", length = 100, nullable = false)
     private String endEstado;
 
     public Endereco() {
+    }
+
+    public Endereco(Long endId, Fornecedor endFornecedor, String endRua, String endNumero, String endCidade, String endCep, String endEstado) {
+        this.endId = endId;
+        this.endFornecedor = endFornecedor;
+        this.endRua = endRua;
+        this.endNumero = endNumero;
+        this.endCidade = endCidade;
+        this.endCep = endCep;
+        this.endEstado = endEstado;
     }
 
     public Endereco(Long endId, Cliente endCliente, String endRua, String endNumero, String endCidade, String endCep, String endEstado) {
@@ -53,6 +80,22 @@ public class Endereco implements Serializable {
 
     public void setEndId(Long endId) {
         this.endId = endId;
+    }
+
+    public Cliente getEndCliente() {
+        return endCliente;
+    }
+
+    public void setEndCliente(Cliente endCliente) {
+        this.endCliente = endCliente;
+    }
+
+    public Fornecedor getEndFornecedor() {
+        return endFornecedor;
+    }
+
+    public void setEndFornecedor(Fornecedor endFornecedor) {
+        this.endFornecedor = endFornecedor;
     }
 
     public String getEndRua() {

@@ -28,29 +28,30 @@ public class FornecedorResource {
         return ResponseEntity.ok(listDTO);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
+    public ResponseEntity<FornecedorDTO> findById(@PathVariable Long id) {
         Fornecedor obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        FornecedorDTO dto = service.toNewDTO(obj);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<Fornecedor> insert(@RequestBody Fornecedor fornecedor){
-        Fornecedor createdFornecedor = service.insert(fornecedor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdFornecedor);
+    public ResponseEntity<FornecedorDTO> insert(@RequestBody FornecedorDTO dto){
+        Fornecedor fornecedor = service.fromDTO(dto);
+        Fornecedor saved = service.insert(fornecedor);
+        FornecedorDTO savedDTO = service.toNewDTO(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedDTO);
     }
 
     @DeleteMapping("{/id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.deleteFornecedor(id);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestBody Fornecedor fornecedor){
-        if (service.update(id, fornecedor)){
-            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.notFound().build();
-        }
+                                    @RequestBody FornecedorDTO dto){
+        Fornecedor updated = service.update(id, dto);
+        FornecedorDTO updatedDTO = service.toNewDTO(updated);
+        return ResponseEntity.ok(updatedDTO);
     }
 }

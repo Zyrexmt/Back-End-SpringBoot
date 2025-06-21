@@ -18,6 +18,13 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_ID")
     private Long forId;
 
+    @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
+    private List<Contato> contatos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
+
+
     @NotBlank(message = "Nome da Fantasia é obrigatório!")
     @Size(max = 100, message = "Nome da Fantasia deve ter no máximo 100 caracteres!")
     @Column(name = "FOR_NOME_FANTASIA", length = 100, nullable = false)
@@ -74,5 +81,21 @@ public class Fornecedor implements Serializable {
 
     public void setForRazaoSocial(String forRazaoSocial) {
         this.forRazaoSocial = forRazaoSocial;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 }
