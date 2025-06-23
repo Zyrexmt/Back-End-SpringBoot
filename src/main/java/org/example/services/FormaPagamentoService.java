@@ -7,6 +7,7 @@ import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,11 @@ public class FormaPagamentoService {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
-    public FormaPagamento insert(FormaPagamento formaPagamento){
-        return repository.save(formaPagamento);
+    public FormaPagamento insert(FormaPagamento obj) {
+        if (obj.getFpgTaxaAdicional().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Taxa adicional não pode ser negativa.");
+        }
+        return repository.save(obj);
     }
 
     public void delete(Long id ){

@@ -1,98 +1,97 @@
 package org.example.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 public class FormaPagamento  implements Serializable {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long fpgId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FPG_ID")
-    private Long fpgId;
+        @NotBlank(message = "Descrição é obrigatório!")
+        @Size(max = 100, message = "Descrição deve ter no máximo 100 caracteres")
+        private String fpgDescricao;
 
-    @NotBlank(message = "Descrição é obrigatório!")
-    @Size(max = 200, message = "Descrição deve ter no máximo 200 caracteres!")
-    @Column(name = "FPG_DESCRICAO", length = 200, nullable = false)
-    private String fpgDescricao;
+        @NotBlank(message = "Definir a forma de pagamento é obrigatório")
+        @Pattern(regexp = "^(Credito|Debito|Pix|Boleto)$",
+                message = "Definir a forma de pagamento é obrigatório (Crédito, Débito, Pix ou Boleto)")
+        private String fpgTipo;
 
-    @NotBlank(message = "Tipo é obrigatório!")
-    @Size(max = 50, message = "Tipo da Forma Pagamento deve ter no máximo 50 caracteres!")
-    @Column(name = "FPG_TIPO", length = 50, nullable = false)
-    private String fpgTipo;
+        @NotNull(message = "Permite Parcelamento é obrigatório")
+        private Boolean fpgPermiteParcelamento;
 
-    @NotBlank(message = "Permite Parcelamento é obrigatório")
-    @Column(name = "FPG_PERMITEPARCELAMENTO", nullable = false)
-    private Boolean fpgPermiteParcelamento;
+        @NotNull(message = "Número máximo de parcelas é obrigatório")
+        @Min(value = 1, message = "Número máximo de parcelas deve ser pelo menos 1")
+        @Max(value = 12, message = "Número máximo de parcelas não pode ser maior que 12")
+        private Integer fpgNumMaxParcelas;
 
-    @NotBlank(message = "Numero Maximo de Parcelas é obrigatório")
-    @Column(name = "FPG_NUMMAXPARCELAS", nullable = false)
-    private Integer fpgNumMaxParcelas;
+        @NotNull(message = "Taxa adicional é obrigatório")
+        @DecimalMin(value = "0.00", message = "Taxa adicional não pode ser negativa")
+        private BigDecimal fpgTaxaAdicional;
 
-    @NotBlank(message = "Taxa adicional é obrigatório")
-    @Column(name = "FPG_TAXAADICIONAL", nullable = false)
-    private BigDecimal fpgTaxaAdicional;
+        // Constructors, getters, and setters
+        public FormaPagamento() {
+        }
 
-    public FormaPagamento() {
+        public FormaPagamento(Long fpgId, String fpgDescricao, String fpgTipo,
+                              Boolean fpgPermiteParcelamento, Integer fpgNumMaxParcelas,
+                              BigDecimal fpgTaxaAdicional) {
+            this.fpgId = fpgId;
+            this.fpgDescricao = fpgDescricao;
+            this.fpgTipo = fpgTipo;
+            this.fpgPermiteParcelamento = fpgPermiteParcelamento;
+            this.fpgNumMaxParcelas = fpgNumMaxParcelas;
+            this.fpgTaxaAdicional = fpgTaxaAdicional;
+        }
+
+        public Long getFpgId() {
+            return fpgId;
+        }
+
+        public void setFpgId(Long fpgId) {
+            this.fpgId = fpgId;
+        }
+
+        public String getFpgDescricao() {
+            return fpgDescricao;
+        }
+
+        public void setFpgDescricao(String fpgDescricao) {
+            this.fpgDescricao = fpgDescricao;
+        }
+
+        public String getFpgTipo() {
+            return fpgTipo;
+        }
+
+        public void setFpgTipo(String fpgTipo) {
+            this.fpgTipo = fpgTipo;
+        }
+
+        public Boolean getFpgPermiteParcelamento() {
+            return fpgPermiteParcelamento;
+        }
+
+        public void setFpgPermiteParcelamento(Boolean fpgPermiteParcelamento) {
+            this.fpgPermiteParcelamento = fpgPermiteParcelamento;
+        }
+
+        public Integer getFpgNumMaxParcelas() {
+            return fpgNumMaxParcelas;
+        }
+
+        public void setFpgNumMaxParcelas(Integer fpgNumMaxParcelas) {
+            this.fpgNumMaxParcelas = fpgNumMaxParcelas;
+        }
+
+        public BigDecimal getFpgTaxaAdicional() {
+            return fpgTaxaAdicional;
+        }
+
+        public void setFpgTaxaAdicional(BigDecimal fpgTaxaAdicional) {
+            this.fpgTaxaAdicional = fpgTaxaAdicional;
+        }
     }
-
-    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgTipo, Boolean fpgPermiteParcelamento, Integer fpgNumMaxParcelas, BigDecimal fpgTaxaAdicional) {
-        this.fpgId = fpgId;
-        this.fpgDescricao = fpgDescricao;
-        this.fpgTipo = fpgTipo;
-        this.fpgPermiteParcelamento = fpgPermiteParcelamento;
-        this.fpgNumMaxParcelas = fpgNumMaxParcelas;
-        this.fpgTaxaAdicional = fpgTaxaAdicional;
-    }
-
-    public Long getFpgId() {
-        return fpgId;
-    }
-
-    public void setFpgId(Long fpgId) {
-        this.fpgId = fpgId;
-    }
-
-    public String getFpgDescricao() {
-        return fpgDescricao;
-    }
-
-    public void setFpgDescricao(String fpgDescricao) {
-        this.fpgDescricao = fpgDescricao;
-    }
-
-    public String getFpgTipo() {
-        return fpgTipo;
-    }
-
-    public void setFpgTipo(String fpgTipo) {
-        this.fpgTipo = fpgTipo;
-    }
-
-    public Boolean getFpgPermiteParcelamento() {
-        return fpgPermiteParcelamento;
-    }
-
-    public void setFpgPermiteParcelamento(Boolean fpgPermiteParcelamento) {
-        this.fpgPermiteParcelamento = fpgPermiteParcelamento;
-    }
-
-    public Integer getFpgNumMaxParcelas() {
-        return fpgNumMaxParcelas;
-    }
-
-    public void setFpgNumMaxParcelas(Integer fpgNumMaxParcelas) {
-        this.fpgNumMaxParcelas = fpgNumMaxParcelas;
-    }
-
-    public BigDecimal getFpgTaxaAdicional() {
-        return fpgTaxaAdicional;
-    }
-
-    public void setFpgTaxaAdicional(BigDecimal fpgTaxaAdicional) {
-        this.fpgTaxaAdicional = fpgTaxaAdicional;
-    }
-}

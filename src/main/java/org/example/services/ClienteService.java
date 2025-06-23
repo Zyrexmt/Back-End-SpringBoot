@@ -15,6 +15,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Optional;
@@ -90,20 +91,30 @@ public class ClienteService {
         }
     }
 
-    public Cliente fromDTO(ClienteDTO objDto) {
-        Cliente fornec = new Cliente(null, objDto.getCliNome(), objDto.getCliCpf());
+    public Cliente fromDTO(ClienteDTO dto) {
+        Cliente cliente = new Cliente();
 
-        Endereco ender = new Endereco(null, fornec, objDto.getEndRua(), objDto.getEndNumero(),
-                objDto.getEndCidade(), objDto.getEndCep(),
-                objDto.getEndEstado());
+        // Mapeamento básico
+        cliente.setCliNome(dto.getCliNome());
+        cliente.setCliCpf(dto.getCliCpf());
 
-        Contato contato = new Contato(null, fornec, objDto.getConCelular(), objDto.getConTelefoneComercial(),
-                objDto.getConEmail());
+        // Mapeamento de endereço
+        Endereco endereco = new Endereco();
+        endereco.setEndRua(dto.getEndRua());
+        endereco.setEndNumero(dto.getEndNumero());
+        endereco.setEndCidade(dto.getEndCidade());
+        endereco.setEndCep(dto.getEndCep());
+        endereco.setEndEstado(dto.getEndEstado());
+        cliente.setEnderecos(Collections.singletonList(endereco));
 
-        fornec.getEnderecos().add(ender);
-        fornec.getContatos().add(contato);
+        // Mapeamento de contato
+        Contato contato = new Contato();
+        contato.setConCelular(dto.getConCelular());
+        contato.setConTelefoneComercial(dto.getConTelefoneComercial());
+        contato.setConEmail(dto.getConEmail());
+        cliente.setContatos(Collections.singletonList(contato));
 
-        return fornec;
+        return cliente;
     }
 
     public ClienteDTO toNewDTO(Cliente obj) {
