@@ -18,6 +18,9 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_ID")
     private Long forId;
 
+    @OneToMany(mappedBy = "ProFornecedor", cascade = CascadeType.ALL)
+    private  List<Produto> produtos = new ArrayList<>();
+
     @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
     private List<Contato> contatos = new ArrayList<>();
 

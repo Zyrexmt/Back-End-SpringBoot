@@ -1,6 +1,8 @@
 package org.example.services;
 
+import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
+import org.example.repositories.FornecedorRepository;
 import org.example.repositories.ProdutoRepository;
 import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
+
     public List<Produto> getAll() {
 
         return repository.findAll();
@@ -28,7 +33,10 @@ public class ProdutoService {
     }
 
 
-    public Produto insert(Produto obj) {
+    public Produto insert( Long forId,Produto obj) {
+        Fornecedor fornecedor = fornecedorRepository.findById(forId)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: "+forId));
+        obj.setFornecedor(fornecedor);
         return repository.save(obj);
     }
 
@@ -47,6 +55,7 @@ public class ProdutoService {
             produtoSistema.setProDataAtualizacao(obj.getProDataAtualizacao());
             produtoSistema.setProDataCadastro(obj.getProDataCadastro());
             produtoSistema.setProCategoria(obj.getProCategoria());
+            produtoSistema.setFornecedor(obj.getFornecedor());
 
             repository.save(produtoSistema);
             return true;

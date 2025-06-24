@@ -15,6 +15,10 @@ public class Produto implements Serializable {
     @Column(name = "PRO_ID")
     private Long proId;
 
+    @ManyToOne
+    @JoinColumn(name = "FOR_ID", nullable = false)
+    private Fornecedor fornecedor;
+
     @NotBlank(message = "Nome é obrigatório")
     @Size(max = 100, message = "Nome inválido, máximo 100 caracterias")
     @Column(name = "PRO_NOME", nullable = false, length = 100)
@@ -79,8 +83,9 @@ public class Produto implements Serializable {
     }
 
     // Construtor com todos os atributos pode ser adicionado aqui se necessário
-    public Produto(Long proId, String proNome, String proDescricao, BigDecimal proPrecoCusto, BigDecimal proPrecoVenda, Integer proQuantidadeEstoque, String proCategoria, String proCodigoBarras, String proMarca, String proUnidadeMedida, String proAtivo, LocalDateTime proDataCadastro, LocalDateTime proDataAtualizacao) {
+    public Produto(Long proId, Fornecedor fornecedor, String proNome, String proDescricao, BigDecimal proPrecoCusto, BigDecimal proPrecoVenda, Integer proQuantidadeEstoque, String proCategoria, String proCodigoBarras, String proMarca, String proUnidadeMedida, String proAtivo, LocalDateTime proDataCadastro, LocalDateTime proDataAtualizacao) {
         this.proId = proId;
+        this.fornecedor = fornecedor;
         this.proNome = proNome;
         this.proDescricao = proDescricao;
         this.proPrecoCusto = proPrecoCusto;
@@ -198,5 +203,13 @@ public class Produto implements Serializable {
 
     public void setProDataAtualizacao(LocalDateTime proDataAtualizacao) {
         this.proDataAtualizacao = proDataAtualizacao;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

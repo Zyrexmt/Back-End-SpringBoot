@@ -1,7 +1,10 @@
 package org.example.resources;
 
+import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
+import org.example.repositories.FornecedorRepository;
 import org.example.services.ProdutoService;
+import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,18 +35,24 @@ public class ProdutoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> insert(@RequestBody Produto produto){
-        Produto createdProduto = service.insert(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduto);
+    public ResponseEntity<Produto> insert(@RequestParam Long forId, @RequestBody Produto produto){
+       Produto newProduct = service.insert(forId, produto);
+        return ResponseEntity.ok(newProduct);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Produto produto){
-        if(service.update(id, produto)){
-            return ResponseEntity.ok().build();
-        }else {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestParam Long forId, @RequestBody Produto produto){
+
+        try {
+            Produto existe = service.findById(id);
+            produto.setProId(id);
+            produto.setFornecedor(null);
+            Produto update = service.insert(forId, produto);
+            return ResponseEntity.ok(update);
+        } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         }
+
     }
 
     @DeleteMapping("/{id}")
