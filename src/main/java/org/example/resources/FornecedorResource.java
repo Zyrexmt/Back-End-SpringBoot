@@ -42,7 +42,7 @@ public class FornecedorResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDTO);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.deleteFornecedor(id);
         return ResponseEntity.noContent().build();

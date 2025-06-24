@@ -35,24 +35,24 @@ public class ProdutoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> insert(@RequestParam Long forId, @RequestBody Produto produto){
-       Produto newProduct = service.insert(forId, produto);
+    public ResponseEntity<Produto> insert(@RequestBody Produto produto){
+        Long forId = produto.getFornecedor().getForId();
+        Produto newProduct = service.insert(forId, produto);
         return ResponseEntity.ok(newProduct);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestParam Long forId, @RequestBody Produto produto){
-
+    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
         try {
-            Produto existe = service.findById(id);
-            produto.setProId(id);
-            produto.setFornecedor(null);
-            Produto update = service.insert(forId, produto);
-            return ResponseEntity.ok(update);
-        } catch (ResourceNotFoundException e){
+            Produto existente = service.findById(id); // Só pra lançar exceção se não existir
+            produto.setProId(id); // Garante que o ID vai ser atualizado corretamente
+
+            Long forId = produto.getFornecedor().getForId(); // Pega o fornecedor do JSON igual no POST
+            Produto atualizado = service.insert(forId, produto); // Usa o mesmo método de inserção
+            return ResponseEntity.ok(atualizado);
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @DeleteMapping("/{id}")

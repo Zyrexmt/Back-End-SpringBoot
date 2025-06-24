@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67b2f0c8-df50-4ac9-9e78-02db2f0c7cbe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ClienteServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/FormaPagamentoServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/FornecedorServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ProdutoServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ClienteServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FormaPagamentoServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FornecedorServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ProdutoServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Fornecedor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Produto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/resources/FornecedorResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/resources/FornecedorResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/resources/ProdutoResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/resources/ProdutoResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,32 +40,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClienteServiceTest.deveConverterDeDtoParaEntidade.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClienteServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FormaPagamentoServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testFindByIdComFalha.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testFromDto.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testInsertComSucesso.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testInsertComViolacaoDeIntegridade.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testUpdateComSucesso.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProdutoServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProjetoSpring [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProjetoSpring [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Senai/Documents/projects/Back-End-Test&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.ClienteServiceTest.deveConverterDeDtoParaEntidade.executor": "Run",
+    "JUnit.ClienteServiceTest.executor": "Run",
+    "JUnit.FormaPagamentoServiceTest.executor": "Run",
+    "JUnit.FornecedorServiceTest.executor": "Run",
+    "JUnit.FornecedorServiceTest.testFindByIdComFalha.executor": "Run",
+    "JUnit.FornecedorServiceTest.testFromDto.executor": "Run",
+    "JUnit.FornecedorServiceTest.testInsertComSucesso.executor": "Run",
+    "JUnit.FornecedorServiceTest.testInsertComViolacaoDeIntegridade.executor": "Run",
+    "JUnit.FornecedorServiceTest.testUpdateComSucesso.executor": "Run",
+    "JUnit.ProdutoServiceTest.executor": "Run",
+    "Maven.ProjetoSpring [clean].executor": "Run",
+    "Maven.ProjetoSpring [install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Senai/Documents/projects/Back-End-SpringBoot",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.FornecedorServiceTest.testFindByIdComFalha">
+}]]></component>
+  <component name="RunManager">
     <configuration name="FornecedorServiceTest.testFindByIdComFalha" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjetoSpring" />
       <option name="PACKAGE_NAME" value="" />
