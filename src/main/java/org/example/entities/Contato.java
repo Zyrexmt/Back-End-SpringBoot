@@ -3,7 +3,9 @@ package org.example.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -25,18 +27,21 @@ public class Contato implements Serializable {
     @JoinColumn(name = "CON_FOR_ID")
     private Fornecedor conFornecedor;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 15, message = "Limite de 15 caracteres")
+    @NotBlank(message = "Celular é obrigatório")
+    @Pattern(regexp = "\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}", message = "Celular deve estar no formato (99) 99999-9999")
+    @Size(max = 15, message = "Celular deve ter no máximo 15 caracteres")
     @Column(name = "CON_CELULAR", length = 15, nullable = false)
     private String conCelular;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 15, message = "Limite de 15 caracteres")
+    @NotBlank(message = "Telefone comercial é obrigatório")
+    @Pattern(regexp = "\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}", message = "Telefone deve estar no formato (99) 99999-9999")
+    @Size(max = 15, message = "Telefone deve ter no máximo 15 caracteres")
     @Column(name = "CON_TELEFONE_COMERCIAL", length = 15, nullable = false)
     private String conTelefoneComercial;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 100, message = "Limite de 100 caracteres")
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email inválido")
+    @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
     @Column(length = 100, name = "CON_EMAIL", nullable = false)
     private String conEmail;
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -15,7 +16,6 @@ public class Endereco implements Serializable {
     @Column(name = "END_ID")
     private Long endId;
 
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "END_CLI_ID")
@@ -26,28 +26,28 @@ public class Endereco implements Serializable {
     @JoinColumn(name = "END_FOR_ID")
     private Fornecedor endFornecedor;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 150, message = "Limite de 150 caracteres")
+    @NotBlank(message = "Rua é obrigatória")
+    @Size(max = 150, message = "Rua deve ter no máximo 150 caracteres")
     @Column(name = "END_RUA", nullable = false, length = 150)
     private String endRua;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 10, message = "Limite de 10 caracteres")
+    @NotBlank(message = "Número é obrigatório")
+    @Size(max = 10, message = "Número deve ter no máximo 10 caracteres")
     @Column(name = "END_NUMERO", nullable = false, length = 10)
     private String endNumero;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 100, message = "Limite de 100 caracteres")
+    @NotBlank(message = "Cidade é obrigatória")
+    @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")
     @Column(name = "END_CIDADE", nullable = false, length = 100)
     private String endCidade;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 8, message = "Limite de 8 caracteres")
-    @Column(name = "END_CEP", length = 8, nullable = false)
+    @NotBlank(message = "CEP é obrigatório")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato 99999-999")
+    @Column(name = "END_CEP", length = 9, nullable = false)
     private String endCep;
 
-    @NotBlank(message = "Obrigatório")
-    @Size(max = 100, message = "Limite de 100 caracteres")
+    @NotBlank(message = "Estado é obrigatório")
+    @Size(max = 100, message = "Estado deve ter no máximo 100 caracteres")
     @Column(name = "END_ESTADO", length = 100, nullable = false)
     private String endEstado;
 

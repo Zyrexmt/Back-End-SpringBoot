@@ -54,30 +54,40 @@ public class ClienteService {
     public Cliente update(Long id, ClienteDTO objDTO){
         try {
             Cliente entity = findById(id);
-            //Atualiza os dados do cliente
+
+            // Atualiza os dados do cliente
             entity.setCliNome(objDTO.getCliNome());
             entity.setCliCpf(objDTO.getCliCpf());
 
             // Atualiza o endereco do cliente
-            Endereco endereco = entity.getEnderecos().get(0);
-            // Assumindo que há apenas um endereço por cliente
+            Endereco endereco;
+            if (!entity.getEnderecos().isEmpty()) {
+                endereco = entity.getEnderecos().get(0);
+            } else {
+                endereco = new Endereco();
+                entity.addEndereco(endereco);  // usando método auxiliar, implemente se ainda não tiver
+            }
             endereco.setEndRua(objDTO.getEndRua());
             endereco.setEndNumero(objDTO.getEndNumero());
             endereco.setEndCidade(objDTO.getEndCidade());
             endereco.setEndCep(objDTO.getEndCep());
             endereco.setEndEstado(objDTO.getEndEstado());
 
-            // Atualiza o contato
-            Contato contato = entity.getContatos().get(0);
-            // Assumindo que há apenas um contato por cliente
+            // Atualiza o contato do cliente
+            Contato contato;
+            if (!entity.getContatos().isEmpty()) {
+                contato = entity.getContatos().get(0);
+            } else {
+                contato = new Contato();
+                entity.addContato(contato); // método auxiliar também, igual no Cliente entity
+            }
             contato.setConCelular(objDTO.getConCelular());
             contato.setConTelefoneComercial(objDTO.getConTelefoneComercial());
             contato.setConEmail(objDTO.getConEmail());
 
             // Salva as alterações
-            repository.save(entity);
+            return repository.save(entity);
 
-            return entity;
         } catch (DataIntegrityViolationException e){
             throw new ValueBigForAtributeException(e.getMessage());
         }
@@ -120,27 +130,29 @@ public class ClienteService {
     public ClienteDTO toNewDTO(Cliente obj) {
         ClienteDTO dto = new ClienteDTO();
 
-// Mapeie os atributos comuns entre Cliente e ClienteNewDTO
         dto.setCliId(obj.getCliId());
         dto.setCliNome(obj.getCliNome());
         dto.setCliCpf(obj.getCliCpf());
 
-// Atributos específicos de Endereco
-        Endereco endereco = obj.getEnderecos().get(0);
-        dto.setEndRua(endereco.getEndRua());
-        dto.setEndNumero(endereco.getEndNumero());
-        dto.setEndCidade(endereco.getEndCidade());
-        dto.setEndCep(endereco.getEndCep());
-        dto.setEndEstado(endereco.getEndEstado());
+        if (obj.getEnderecos() != null && !obj.getEnderecos().isEmpty()) {
+            Endereco endereco = obj.getEnderecos().get(0);
+            dto.setEndRua(endereco.getEndRua());
+            dto.setEndNumero(endereco.getEndNumero());
+            dto.setEndCidade(endereco.getEndCidade());
+            dto.setEndCep(endereco.getEndCep());
+            dto.setEndEstado(endereco.getEndEstado());
+        }
 
-// Atributos específicos de Contato
-        Contato contato = obj.getContatos().get(0);
-        dto.setConCelular(contato.getConCelular());
-        dto.setConTelefoneComercial(contato.getConTelefoneComercial());
-        dto.setConEmail(contato.getConEmail());
+        if (obj.getContatos() != null && !obj.getContatos().isEmpty()) {
+            Contato contato = obj.getContatos().get(0);
+            dto.setConCelular(contato.getConCelular());
+            dto.setConTelefoneComercial(contato.getConTelefoneComercial());
+            dto.setConEmail(contato.getConEmail());
+        }
 
         return dto;
     }
+
 
 
 }

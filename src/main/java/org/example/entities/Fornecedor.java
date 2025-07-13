@@ -1,7 +1,6 @@
 package org.example.entities;
 
 import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,14 +18,13 @@ public class Fornecedor implements Serializable {
     private Long forId;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    private  List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>();
 
     @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
     private List<Contato> contatos = new ArrayList<>();
 
     @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
-
 
     @NotBlank(message = "Nome da Fantasia é obrigatório!")
     @Size(max = 100, message = "Nome da Fantasia deve ter no máximo 100 caracteres!")

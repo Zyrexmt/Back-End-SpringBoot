@@ -17,10 +17,10 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_ID")
     private Long cliId;
 
-    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contato> contatos = new ArrayList<>();
 
     @NotBlank(message = "Nome é obrigatório!")
@@ -33,14 +33,15 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_CPF", length = 11 , nullable = false, unique = true)
     private String cliCpf;
 
-    public Cliente() {
-    }
+    public Cliente() {}
 
     public Cliente(Long cliId, String cliCpf, String cliNome) {
         this.cliId = cliId;
         this.cliCpf = cliCpf;
         this.cliNome = cliNome;
     }
+
+    // Getters e setters omitidos para brevidade...
 
     public Long getCliId() {
         return cliId;
@@ -80,5 +81,27 @@ public class Cliente implements Serializable {
 
     public void setCliCpf(String cliCpf) {
         this.cliCpf = cliCpf;
+    }
+
+    // Métodos auxiliares para manter os dois lados sincronizados
+
+    public void addEndereco(Endereco endereco) {
+        enderecos.add(endereco);
+        endereco.setEndCliente(this);
+    }
+
+    public void removeEndereco(Endereco endereco) {
+        enderecos.remove(endereco);
+        endereco.setEndCliente(null);
+    }
+
+    public void addContato(Contato contato) {
+        contatos.add(contato);
+        contato.setConCliente(this);
+    }
+
+    public void removeContato(Contato contato) {
+        contatos.remove(contato);
+        contato.setConCliente(null);
     }
 }
