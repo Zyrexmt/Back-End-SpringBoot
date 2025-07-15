@@ -102,27 +102,19 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDTO dto) {
-        Cliente cliente = new Cliente();
+        Cliente cliente = new Cliente(null, dto.getCliCpf(), dto.getCliNome());
 
-        // Mapeamento básico
-        cliente.setCliNome(dto.getCliNome());
-        cliente.setCliCpf(dto.getCliCpf());
+        // Criar endereço vinculando ao cliente
+        Endereco endereco = new Endereco(null, cliente, dto.getEndRua(), dto.getEndNumero(),
+                dto.getEndCidade(), dto.getEndCep(), dto.getEndEstado());
 
-        // Mapeamento de endereço
-        Endereco endereco = new Endereco();
-        endereco.setEndRua(dto.getEndRua());
-        endereco.setEndNumero(dto.getEndNumero());
-        endereco.setEndCidade(dto.getEndCidade());
-        endereco.setEndCep(dto.getEndCep());
-        endereco.setEndEstado(dto.getEndEstado());
-        cliente.setEnderecos(Collections.singletonList(endereco));
+        // Criar contato vinculando ao cliente
+        Contato contato = new Contato(null, cliente, dto.getConCelular(), dto.getConTelefoneComercial(),
+                dto.getConEmail());
 
-        // Mapeamento de contato
-        Contato contato = new Contato();
-        contato.setConCelular(dto.getConCelular());
-        contato.setConTelefoneComercial(dto.getConTelefoneComercial());
-        contato.setConEmail(dto.getConEmail());
-        cliente.setContatos(Collections.singletonList(contato));
+        // Usar os métodos auxiliares para manter o relacionamento sincronizado
+        cliente.addEndereco(endereco);
+        cliente.addContato(contato);
 
         return cliente;
     }
