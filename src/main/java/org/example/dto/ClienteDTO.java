@@ -11,7 +11,6 @@ public class ClienteDTO {
     private String cliCpf;
 
     private String cliNome;
-    private String cliEmail;
     private String endRua;
 
 
@@ -55,14 +54,6 @@ public class ClienteDTO {
 
     public void setCliCpf(String cliCpf) {
         this.cliCpf = cliCpf;
-    }
-
-    public String getCliEmail() {
-        return cliEmail;
-    }
-
-    public void setCliEmail(String cliEmail) {
-        this.cliEmail = cliEmail;
     }
 
     public String getEndRua() {
