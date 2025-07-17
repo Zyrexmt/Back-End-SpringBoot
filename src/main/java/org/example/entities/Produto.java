@@ -5,6 +5,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Produto implements Serializable {
@@ -61,14 +62,14 @@ public class Produto implements Serializable {
 
     @NotBlank(message = "O status de ativo do produto é obrigatório.")
     @Pattern(regexp = "^(Ativo|Inativo)$", message = "O status do produto deve ser 'Ativo' ou 'Inativo'.")
-    @Column(name = "PRO_ATIVO", length = 10, nullable = false)
+    @Column(name = "PRO_ATIVO", length = 5, nullable = false)
     private String proAtivo;
 
-    @NotNull(message = "A data de cadastro é obrigatória.")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "PRO_DATA_CADASTRO", nullable = false)
     private LocalDateTime proDataCadastro;
 
-    @NotNull(message = "A data de atualização é obrigatória.")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "PRO_DATA_ATUALIZACAO", nullable = false)
     private LocalDateTime proDataAtualizacao;
 

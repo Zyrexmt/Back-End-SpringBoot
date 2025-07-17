@@ -99,4 +99,5 @@ public class Fornecedor implements Serializable {
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
+
 }

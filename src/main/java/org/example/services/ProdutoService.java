@@ -1,17 +1,18 @@
 package org.example.services;
 
+import org.example.dto.ProdutoDTO;
 import org.example.entities.Fornecedor;
 import org.example.entities.Produto;
 import org.example.repositories.FornecedorRepository;
 import org.example.repositories.ProdutoRepository;
 import org.example.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
@@ -22,49 +23,93 @@ public class ProdutoService {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-    public List<Produto> getAll() {
-
-        return repository.findAll();
+    public List<ProdutoDTO> getAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Produto findById(Long id){
-        Optional<Produto> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    public ProdutoDTO findDTOById(Long id) {
+        Produto produto = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        return toDTO(produto);
     }
 
-
-    public Produto insert( Long forId,Produto obj) {
-        Fornecedor fornecedor = fornecedorRepository.findById(forId)
-                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: "+forId));
-        obj.setFornecedor(fornecedor);
-        return repository.save(obj);
+    public ProdutoDTO insert(ProdutoDTO dto) {
+        Produto produto = fromDTO(dto);
+        produto.setProDataCadastro(LocalDateTime.now());
+        produto.setProDataAtualizacao(LocalDateTime.now());
+        Produto saved = repository.save(produto);
+        return toDTO(saved);
     }
 
-    public boolean update(Long id, Produto obj) {
-        Optional<Produto> optionalProduto = repository.findById(id);
-        if (optionalProduto.isPresent()) {
-            Produto produtoSistema = optionalProduto.get();
-            produtoSistema.setProNome(obj.getProNome());
-            produtoSistema.setProPrecoCusto(obj.getProPrecoCusto());
-            produtoSistema.setProPrecoVenda(obj.getProPrecoVenda());
-            produtoSistema.setProQuantidadeEstoque(obj.getProQuantidadeEstoque());
-            produtoSistema.setProDescricao(obj.getProDescricao());
-            produtoSistema.setProCodigoBarras(obj.getProCodigoBarras());
-            produtoSistema.setProAtivo(obj.getProAtivo());
-            produtoSistema.setProMarca(obj.getProMarca());
-            produtoSistema.setProDataAtualizacao(obj.getProDataAtualizacao());
-            produtoSistema.setProDataCadastro(obj.getProDataCadastro());
-            produtoSistema.setProCategoria(obj.getProCategoria());
-            produtoSistema.setFornecedor(obj.getFornecedor());
+    public ProdutoDTO update(Long id, ProdutoDTO dto) {
+        Produto existing = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        existing.setProNome(dto.getProNome());
+        existing.setProDescricao(dto.getProDescricao());
+        existing.setProPrecoCusto(dto.getProPrecoCusto());
+        existing.setProPrecoVenda(dto.getProPrecoVenda());
+        existing.setProQuantidadeEstoque(dto.getProQuantidadeEstoque());
+        existing.setProCategoria(dto.getProCategoria());
+        existing.setProCodigoBarras(dto.getProCodigoBarras());
+        existing.setProMarca(dto.getProMarca());
+        existing.setProUnidadeMedida(dto.getProUnidadeMedida());
+        existing.setProAtivo(dto.getProAtivo());
+        existing.setProDataAtualizacao(LocalDateTime.now());
 
-            repository.save(produtoSistema);
-            return true;
-        }
-        return false;
+        Fornecedor fornecedor = fornecedorRepository.findById(dto.getForId())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + dto.getForId()));
+        existing.setFornecedor(fornecedor);
+
+        Produto updated = repository.save(existing);
+        return toDTO(updated);
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
     }
 
+    private ProdutoDTO toDTO(Produto produto) {
+        ProdutoDTO dto = new ProdutoDTO();
+        dto.setProId(produto.getProId());
+        dto.setProNome(produto.getProNome());
+        dto.setProDescricao(produto.getProDescricao());
+        dto.setProPrecoCusto(produto.getProPrecoCusto());
+        dto.setProPrecoVenda(produto.getProPrecoVenda());
+        dto.setProQuantidadeEstoque(produto.getProQuantidadeEstoque());
+        dto.setProCategoria(produto.getProCategoria());
+        dto.setProCodigoBarras(produto.getProCodigoBarras());
+        dto.setProMarca(produto.getProMarca());
+        dto.setProUnidadeMedida(produto.getProUnidadeMedida());
+        dto.setProAtivo(produto.getProAtivo());
+        dto.setProDataCadastro(produto.getProDataCadastro());
+        dto.setProDataAtualizacao(produto.getProDataAtualizacao());
+        dto.setForId(produto.getFornecedor().getForId());
+        return dto;
+    }
+
+    private Produto fromDTO(ProdutoDTO dto) {
+        Produto produto = new Produto();
+        produto.setProId(dto.getProId());
+        produto.setProNome(dto.getProNome());
+        produto.setProDescricao(dto.getProDescricao());
+        produto.setProPrecoCusto(dto.getProPrecoCusto());
+        produto.setProPrecoVenda(dto.getProPrecoVenda());
+        produto.setProQuantidadeEstoque(dto.getProQuantidadeEstoque());
+        produto.setProCategoria(dto.getProCategoria());
+        produto.setProCodigoBarras(dto.getProCodigoBarras());
+        produto.setProMarca(dto.getProMarca());
+        produto.setProUnidadeMedida(dto.getProUnidadeMedida());
+        produto.setProAtivo(dto.getProAtivo());
+        produto.setProDataCadastro(dto.getProDataCadastro());
+        produto.setProDataAtualizacao(dto.getProDataAtualizacao());
+
+        Fornecedor fornecedor = fornecedorRepository.findById(dto.getForId())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + dto.getForId()));
+        produto.setFornecedor(fornecedor);
+
+        return produto;
+    }
 }
