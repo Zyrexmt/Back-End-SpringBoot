@@ -13,16 +13,15 @@ public class FormaPagamento implements Serializable {
     @Column(name = "FPG_ID")
     private Long fpgId;
 
+    @NotBlank(message = "Tipo de pagamento é obrigatório")
+    @Pattern(regexp = "^(Credito|Debito|Pix|Boleto)$", message = "Tipo deve ser: Credito, Debito, Pix ou Boleto")
+    @Column(name = "FPG_TIPO", nullable = false, length = 10)
+    private String fpgTipo;
+
     @NotBlank(message = "Descrição é obrigatória!")
     @Size(max = 100, message = "Descrição deve ter no máximo 100 caracteres")
     @Column(name = "FPG_DESCRICAO", nullable = false, length = 100)
     private String fpgDescricao;
-
-    @NotBlank(message = "Tipo de pagamento é obrigatório")
-    @Pattern(regexp = "^(Credito|Debito|Pix|Boleto)$",
-            message = "Tipo deve ser: Credito, Debito, Pix ou Boleto")
-    @Column(name = "FPG_TIPO", nullable = false, length = 10)
-    private String fpgTipo;
 
     @NotNull(message = "Campo 'Permite Parcelamento' é obrigatório")
     @Column(name = "FPG_PERMITE_PARCELAMENTO", nullable = false)
@@ -36,7 +35,7 @@ public class FormaPagamento implements Serializable {
 
     @NotNull(message = "Taxa adicional é obrigatória")
     @DecimalMin(value = "0.00", inclusive = true, message = "Taxa adicional não pode ser negativa")
-    @Column(name = "FPG_TAXA_ADICIONAL", nullable = false, precision = 10, scale = 2)
+    @Column(name = "FPG_TAXA_ADICIONAL", nullable = false, precision = 80, scale = 2)
     private BigDecimal fpgTaxaAdicional;
 
     public FormaPagamento() {

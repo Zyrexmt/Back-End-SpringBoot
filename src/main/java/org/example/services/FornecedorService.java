@@ -115,7 +115,7 @@ public class FornecedorService {
         Endereco endereco = obj.getEnderecos().get(0);
         dto.setEndRua(endereco.getEndRua());
         dto.setEndNumero(endereco.getEndNumero());
-        dto.setEndCidade(dto.getEndCidade());
+        dto.setEndCidade(endereco.getEndCidade());
         dto.setEndCep(endereco.getEndCep());
         dto.setEndEstado(endereco.getEndEstado());
 
