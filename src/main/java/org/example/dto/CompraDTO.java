@@ -13,7 +13,7 @@ public class CompraDTO {
 
     @NotNull
     @Min(1)
-    private Integer compraQuatidade;
+    private Integer compraQuantidade;
 
     @NotNull
     @Digits(integer = 10, fraction = 2)
@@ -30,12 +30,12 @@ public class CompraDTO {
         this.proId = proId;
     }
 
-    public Integer getCompraQuatidade() {
-        return compraQuatidade;
+    public Integer getCompraQuantidade() {
+        return compraQuantidade;
     }
 
     public void setCompraQuatidade(Integer compraQuatidade) {
-        this.compraQuatidade = compraQuatidade;
+        this.compraQuantidade = compraQuantidade;
     }
 
     public BigDecimal getCompraPrecoVenda() {

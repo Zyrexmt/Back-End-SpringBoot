@@ -68,16 +68,16 @@ public class VendaService {
             Produto produto = produtoRepository.findById(compraDTO.getProId())
                     .orElseThrow(() -> new ResourceNotFoundException(compraDTO.getProId()));
 
-            produtoService.reduzirEstoque(produto.getProId(), compraDTO.getCompraQuatidade());
+            produtoService.reduzirEstoque(produto.getProId(), compraDTO.getCompraQuantidade());
 
             Compra compra = new Compra();
             compra.setProduto(produto);
-            compra.setCompraQuantidade(compraDTO.getCompraQuatidade());
+            compra.setCompraQuantidade(compraDTO.getCompraQuantidade());
             compra.setCompraPrecoVenda(compraDTO.getCompraPrecoVenda());
             compra.setVenda(venda);
 
             BigDecimal subtotal = compraDTO.getCompraPrecoVenda()
-                    .multiply(BigDecimal.valueOf(compraDTO.getCompraQuatidade()));
+                    .multiply(BigDecimal.valueOf(compraDTO.getCompraQuantidade()));
             total = total.add(subtotal);
 
             compras.add(compra);

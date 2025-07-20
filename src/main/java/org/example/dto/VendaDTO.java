@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.example.entities.Compra;
 
 import javax.validation.constraints.Digits;
@@ -15,7 +16,6 @@ public class VendaDTO {
     @NotBlank
     private String vendaCodigo;
 
-    @NotNull
     private LocalDateTime vendaData;
 
     @NotNull
