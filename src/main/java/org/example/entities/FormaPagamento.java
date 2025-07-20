@@ -35,7 +35,7 @@ public class FormaPagamento implements Serializable {
 
     @NotNull(message = "Taxa adicional é obrigatória")
     @DecimalMin(value = "0.00", inclusive = true, message = "Taxa adicional não pode ser negativa")
-    @Column(name = "FPG_TAXA_ADICIONAL", nullable = false, precision = 80, scale = 2)
+    @Column(name = "FPG_TAXA_ADICIONAL", nullable = false, precision = 10, scale = 2)
     private BigDecimal fpgTaxaAdicional;
 
     public FormaPagamento() {
