@@ -59,6 +59,7 @@ public class VendaService {
         venda.setCliente(cliente);
         venda.setFormaPagamento(formaPagamento);
         venda.setVendaCodigo(dto.getVendaCodigo());
+        venda.setVendaId(dto.getVendaId());
         venda.setVendaData(dto.getVendaData());
 
         List<Compra> compras = new ArrayList<>();
@@ -93,6 +94,7 @@ public class VendaService {
     public VendaDTO toDTO(Venda venda){
         VendaDTO dto = new VendaDTO();
 
+        dto.setVendaId(venda.getVendaId());
         dto.setVendaCodigo(venda.getVendaCodigo());
         dto.setVendaData(venda.getVendaData());
         dto.setCliId(venda.getCliente().getCliId());

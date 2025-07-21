@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="67b2f0c8-df50-4ac9-9e78-02db2f0c7cbe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/CompraDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/CompraDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/VendaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/VendaDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/resources/VendaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/resources/VendaResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ProdutoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/VendaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/VendaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,34 +34,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClienteServiceTest.deveConverterDeDtoParaEntidade.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClienteServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FormaPagamentoServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testFindByIdComFalha.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testFromDto.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testInsertComSucesso.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testInsertComViolacaoDeIntegridade.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FornecedorServiceTest.testUpdateComSucesso.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProdutoServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProjetoSpring [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProjetoSpring [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sueht/OneDrive/Documentos/projects/Back-End-SpringBoot&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "JUnit.ClienteServiceTest.deveConverterDeDtoParaEntidade.executor": "Run",
+    "JUnit.ClienteServiceTest.executor": "Run",
+    "JUnit.FormaPagamentoServiceTest.executor": "Run",
+    "JUnit.FornecedorServiceTest.executor": "Run",
+    "JUnit.FornecedorServiceTest.testFindByIdComFalha.executor": "Run",
+    "JUnit.FornecedorServiceTest.testFromDto.executor": "Run",
+    "JUnit.FornecedorServiceTest.testInsertComSucesso.executor": "Run",
+    "JUnit.FornecedorServiceTest.testInsertComViolacaoDeIntegridade.executor": "Run",
+    "JUnit.FornecedorServiceTest.testUpdateComSucesso.executor": "Run",
+    "JUnit.ProdutoServiceTest.executor": "Run",
+    "Maven.ProjetoSpring [clean].executor": "Run",
+    "Maven.ProjetoSpring [install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sueht/OneDrive/Documentos/projects/Back-End-SpringBoot",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />

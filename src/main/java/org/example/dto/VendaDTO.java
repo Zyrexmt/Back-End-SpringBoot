@@ -13,6 +13,7 @@ import java.util.List;
 
 public class VendaDTO {
 
+    private Long vendaId;
     @NotBlank
     private String vendaCodigo;
 
@@ -32,6 +33,14 @@ public class VendaDTO {
     private List<CompraDTO> compras;
 
     public VendaDTO() {
+    }
+
+    public Long getVendaId() {
+        return vendaId;
+    }
+
+    public void setVendaId(Long vendaId) {
+        this.vendaId = vendaId;
     }
 
     public String getVendaCodigo() {
