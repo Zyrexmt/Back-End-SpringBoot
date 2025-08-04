@@ -29,14 +29,14 @@ public class Contato implements Serializable {
 
     @NotBlank(message = "Celular é obrigatório")
     @Pattern(regexp = "\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}", message = "Celular deve estar no formato (99) 99999-9999")
-    @Size(max = 15, message = "Celular deve ter no máximo 15 caracteres")
-    @Column(name = "CON_CELULAR", length = 15, nullable = false)
+    @Size(max = 20, message = "Celular deve ter no máximo 15 caracteres")
+    @Column(name = "CON_CELULAR", length = 20, nullable = false)
     private String conCelular;
 
     @NotBlank(message = "Telefone comercial é obrigatório")
     @Pattern(regexp = "\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}", message = "Telefone deve estar no formato (99) 99999-9999")
-    @Size(max = 15, message = "Telefone deve ter no máximo 15 caracteres")
-    @Column(name = "CON_TELEFONE_COMERCIAL", length = 15, nullable = false)
+    @Size(max = 20, message = "Telefone deve ter no máximo 15 caracteres")
+    @Column(name = "CON_TELEFONE_COMERCIAL", length = 20, nullable = false)
     private String conTelefoneComercial;
 
     @NotBlank(message = "Email é obrigatório")
